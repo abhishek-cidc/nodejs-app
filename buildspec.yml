@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - echo Build started on `date`
+      - echo Installing dependencies...
+      - npm install
+  
+  build:
+    commands:
+      - echo Build phase started on `date`
+      - echo Running tests...
+      - npm test
+      - echo Tests completed successfully
+      - echo Build completed on `date`
+  
+  post_build:
+    commands:
+      - echo Post-build phase started on `date`
+      - echo Build completed on `date`
+
+artifacts:
+  files:
+    - '**/*'
+  name: nodejs-codepipeline-demo-$(date +%Y-%m-%d)
+
+cache:
+  paths:
+    - node_modules/**/*
